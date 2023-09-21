@@ -1,0 +1,10 @@
+{
+  "agent123": {
+    "keypair": {
+      "private_key": "xprvA2joB4FWGXLvt4F5L1HVCzWonqz8rzkYBw8VrjyQhmb8dorx3DEbocDGnsHSDNhtTf4CuSC8iCnaovsDaZPDae7aF2xwYxHKjMEBiv6NLJk",
+      "public_key": "xprvA2joB4FWGXLvt4F5L1HVCzWonqz8rzkYBw8VrjyQhmb8dorx3DEbocDGnyFkorvr2LqQKPANUu333Y5abpvmuusqEgfX1eB2VsQdnGEudhf"
+    },
+    "mnemonic": "eternal bring move black rich spatial term odor sadness weather inform just trial budget domain awkward foam minute scrub gentle appear plastic during gaze",
+    "payable_account_id": null
+  }
+}

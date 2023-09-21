@@ -64,33 +64,72 @@ $ cargo run -- --debug status
 
 ```
 
-## Generate Docs
-
-```bash
-cargo doc --no-deps
-```
-
 ## Setup
 
--   Set a contract address for each chain in config.yaml
--   Add agent into local keystore
+### Prerequisites
+
+Clone the elys Repository and the cw-croncat repository in a separate directory
 
 ```bash
-## Generate for a specific network
-## "mainnet" gives a namespace to a key/pair.
-## It is advised to create separate keys for mainnet/testnet
-cargo run generate-mnemonic mainnet
+git clone git@github.com:elys-network/elys.git
+git clone git@github.com:CronCats/cw-croncat.git
 
-## Another way to load key/pair
-cargo run generate-mnemonic mainnet --mnemonic "olive soup parade family educate congress hurt dwarf mom this position hungry unaware aunt swamp sunny analyst wrestle fashion main knife start coffee air"
 ```
 
-### Register an agent
+-move the script from `init_croncat_contract.sh` to the cw-croncat reposirory
+
+-move the `agents.json` to `~/../.croncatd/`
+
+-add to the elys repository `config.yml` in the accounts field the agent123:
+
+```yml
+accounts:
+    - name: agent123
+      coins:
+          - 100000000uatom
+          - 100000000uusdt
+          - 9000000000000000uelys
+          - 100000000ueden
+      mnemonic: eternal bring move black rich spatial term odor sadness weather inform just trial budget domain awkward foam minute scrub gentle appear plastic during gaze
+```
+
+### Start the elys local net
+
+in the elys repository:
 
 ```bash
-export CRONCAT_CHAIN_ID=uni-6
-export CRONCAT_AGENT=mainnet
-cargo run register
+ignite chain serve -r
+```
+
+### Register an agent and create a task
+
+in the cw-croncat repository:
+
+```bash
+sh init_croncat_contract.sh
+```
+
+### Start the agent node
+
+in this repository:
+
+-define the environent variable
+
+```bash
+export CRONCAT_CHAIN_ID=agent123
+export CRONCAT_AGENT=elystestnet-1
+```
+
+-check if everything is alright
+
+```
+cargo run status
+```
+
+-start the node
+
+```
+cargo run go
 ```
 
 ### Go for executing tasks
@@ -110,28 +149,6 @@ cargo run status
 
 # Claim rewards
 cargo run withdraw
-```
-
-### Send Funds
-
-Maybe you wanna send claimed rewards elsewhere, simple command for this! Just make sure you leave funds for the agent to sign txn fees...
-
-```bash
-cargo run send juno1x4uaf...8q8jdraaqj 10 ujunox
-```
-
-### Configuring Custom RPCs
-
-```
-    uni-6:
-        factory: juno1x4uaf50flf6af8jpean8ruu8q8jdraaqj7e3gg3wemqm5cdw040qk982ec
-        gas_prices: 0.04
-        gas_adjustment: 1.3
-        rpc_timeout: 9.0
-        include_evented_tasks: false
-        custom_sources:
-            "Cats R US 🙀":
-                rpc: http://192.168.1.13
 ```
 
 ## Code of Conduct
