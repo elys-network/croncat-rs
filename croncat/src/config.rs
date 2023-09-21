@@ -3,7 +3,10 @@
 use std::collections::HashMap;
 
 use color_eyre::Result;
-use cosmos_chain_registry::{chain::Rpc, ChainInfo, ChainRegistry};
+use cosmos_chain_registry::{
+    chain::{FeeToken, Rpc},
+    ChainInfo, ChainRegistry,
+};
 use serde::{Deserialize, Serialize};
 use url::Url;
 
@@ -17,7 +20,17 @@ impl Config {
         let pwd = std::env::current_dir()?;
         let config_path = pwd.join("config.yaml");
         let config = std::fs::read_to_string(config_path)?;
-        let config = serde_yaml::from_str(&config)?;
+        let mut config: Config = serde_yaml::from_str(&config)?;
+        if let Some(chain) = config.chains.get_mut(&String::from("elystestnet-1")) {
+            let fees = FeeToken {
+                denom: "uelys".to_owned(),
+                fixed_min_gas_price: 0.10,
+                low_gas_price: 0.10,
+                average_gas_price: 0.50,
+                high_gas_price: 1.0,
+            };
+            chain.info.fees.fee_tokens = vec![fees];
+        }
         Ok(config)
     }
 }
@@ -96,24 +109,29 @@ pub struct ChainConfig {
 
 impl ChainConfig {
     fn from_entry(mut info: ChainInfo, entry: RawChainConfigEntry) -> Self {
-        let gas_prices = entry
-            .gas_prices
-            .unwrap_or(info.fees.fee_tokens[0].fixed_min_gas_price);
+        let gas_prices = entry.gas_prices.unwrap_or(0.25);
         let gas_adjustment = entry.gas_adjustment.unwrap_or(1.5);
         let block_polling_seconds = entry.block_polling_seconds.unwrap_or(5.0);
         let block_polling_timeout_seconds = entry.block_polling_timeout_seconds.unwrap_or(30.0);
         let websocket_timeout_seconds = entry.websocket_timeout_seconds.unwrap_or(30.0);
 
         // Add optional custom sources to the chain info.
-        if let Some(custom_sources) = entry.custom_sources {
-            for (provider, source) in custom_sources {
-                // Add the custom RPC source.
-                info.apis.rpc.push(Rpc {
-                    provider: Some(provider.clone()),
-                    address: source.rpc.clone(),
-                });
-            }
-        }
+        // if let Some(custom_sources) = entry.custom_sources {
+        //     for (provider, source) in custom_sources {
+        //         // Add the custom RPC source.
+        //         info.apis.rpc.push(Rpc {
+        //             provider: Some(provider.clone()),
+        //             address: source.rpc.clone(),
+        //         });
+        //     }
+        // }
+
+        info.apis.rpc = vec![Rpc {
+            provider: Some("Elys Network".to_string()),
+            address: "http://localhost:26657".to_string(),
+        }];
+        info.apis.grpc = vec![];
+        info.apis.rest = vec![];
 
         Self {
             info,
