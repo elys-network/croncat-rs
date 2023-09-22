@@ -78,7 +78,7 @@ git clone git@github.com:CronCats/cw-croncat.git
 
 -move the script from `init_croncat_contract.sh` to the cw-croncat reposirory
 
--move the `agents.json` to `~/../.croncatd/`
+-move the `agents.json` to `~/.croncatd/`
 
 -add to the elys repository `config.yml` in the accounts field the agent123:
 
