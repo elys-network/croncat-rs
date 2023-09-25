@@ -171,6 +171,7 @@ impl LocalAgentStorage {
         let mnemonic: Mnemonic = entry.mnemonic.parse()?;
         let key =
             cosmrs::bip32::XPrv::derive_from_path(mnemonic.to_seed(""), &DERIVATION_PATH.parse()?)?;
+
         Ok(key)
     }
 

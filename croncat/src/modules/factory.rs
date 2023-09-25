@@ -104,13 +104,13 @@ impl Factory {
 
     // get contract addr for contract_name, by version or default latest
     pub async fn get_contract_addr(&self, contract_name: String) -> Result<Address, Report> {
-        let err = "No version found for {contract_name}";
+        let err = format!("No version found for {}", contract_name.clone());
         if let Some(data) = self.store.get() {
-            let version = data.latest.get(&contract_name).expect(err);
+            let version = data.latest.get(&contract_name).expect(&err);
             let metadata = data
                 .versions
                 .get(&to_version_key(contract_name, *version))
-                .expect(err);
+                .expect(&err);
             return Ok(Address::from_str(metadata.contract_addr.as_ref())?);
         }
         Err(eyre!(err))
