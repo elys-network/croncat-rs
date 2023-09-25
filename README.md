@@ -86,7 +86,7 @@ mkdir ~/.croncatd
 
 -   move the `agents.json` to `~/.croncatd/`
 
--   add to the elys repository `config.yml` in the accounts field the agent123:
+-   make the following change in the 'elys' repository's `config.yml` file: Within the 'accounts' section, add an entry labeled 'agent123'
 
 ```yml
 accounts:
