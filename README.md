@@ -76,11 +76,17 @@ git clone git@github.com:CronCats/cw-croncat.git
 
 ```
 
--move the script from `init_croncat_contract.sh` to the cw-croncat reposirory
+-   move the script from `init_croncat_contract.sh` to the cw-croncat reposirory
 
--move the `agents.json` to `~/.croncatd/`
+-   create a directory named `.croncatd`
 
--add to the elys repository `config.yml` in the accounts field the agent123:
+```bash
+mkdir ~/.croncatd
+```
+
+-   move the `agents.json` to `~/.croncatd/`
+
+-   add to the elys repository `config.yml` in the accounts field the agent123:
 
 ```yml
 accounts:
@@ -113,22 +119,22 @@ sh init_croncat_contract.sh
 
 in this repository:
 
--define the environent variable
+-   define the environent variable
 
 ```bash
 export CRONCAT_CHAIN_ID=agent123
 export CRONCAT_AGENT=elystestnet-1
 ```
 
--check if everything is alright
+-   check if everything is alright
 
-```
+```bash
 cargo run status
 ```
 
--start the node
+-   start the node
 
-```
+```bash
 cargo run go
 ```
 
