@@ -76,7 +76,7 @@ git clone git@github.com:CronCats/cw-croncat.git
 
 ```
 
--   move the script from `init_croncat_contract.sh` to the cw-croncat reposirory
+-   move the script from `init_croncat_contract.sh` to the cw-croncat repository
 
 -   create a directory named `.croncatd`
 
