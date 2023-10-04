@@ -74,7 +74,7 @@ impl Block {
     delegate! {
         to self.inner {
             pub fn header(&self) -> &tendermint::block::Header;
-            pub fn data(&self) -> &tendermint::abci::transaction::Data;
+            pub fn data(&self) -> &Vec<Vec<u8>>;
         }
     }
 }
