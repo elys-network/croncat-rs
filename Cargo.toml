@@ -8,8 +8,8 @@ opt-level = "z"
 debug = true
 
 [patch.crates-io]
-cosm-orc = { git = "https://github.com/elys-network/cosm-orc.git", branch = "dependencies-fix" }
-cosm-tome = { git = "https://github.com/elys-network/cosm-tome.git", branch = "dependencies-fix", features = [
+cosm-orc = { git = "https://github.com/elys-network/cosm-orc.git" }
+cosm-tome = { git = "https://github.com/elys-network/cosm-tome.git", features = [
     "rpc",
     "cosmwasm",
     "grpc",
