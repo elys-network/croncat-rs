@@ -6,3 +6,11 @@ lto = "fat"
 codegen-units = 1
 opt-level = "z"
 debug = true
+
+[patch.crates-io]
+cosm-orc = { git = "https://github.com/elys-network/cosm-orc.git" }
+cosm-tome = { git = "https://github.com/elys-network/cosm-tome.git", features = [
+    "rpc",
+    "cosmwasm",
+    "grpc",
+] }
